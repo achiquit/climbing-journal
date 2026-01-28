@@ -115,7 +115,10 @@ def new_climb(cur: Cursor) -> int:
 
     res = cur.execute("SELECT id FROM climbs ORDER BY id DESC;")
     last_climb = res.fetchone()
-    id = last_climb[0] + 1
+    if last_climb == None:
+        id = 1
+    else:
+        id = last_climb[0] + 1
 
     name = input("Climb Name: ")
 
