@@ -32,6 +32,9 @@ I won't get deep into how to set up the server here, as there are tons of guides
 I also left some fun little SQL scripts in the scripts folder. Some of them just don't translate well to leaving them alone to be automated on the journal page, or are works in progress for which I welcome collaboration! One of them also outputs the lat/long of all climbs with some basic information that can be easily imported into a Google Map :) 
 
 # Areas for Improvement:
+## Things I'm actively working on fixing
+- Adjust type_func() in add_data.py to accommodate adding climbs that have multiple types
+
 ## Areas I'm not psyched on implementing myself
 (because I'm personally not too fussed with it)
 - Data by pitch. Like how tall each pitch was, whether I led or followed a given pitch, etc.

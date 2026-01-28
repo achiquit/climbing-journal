@@ -24,15 +24,15 @@ CREATE TABLE grades(
 	"id" INTEGER PRIMARY KEY ASC,
 	"grade" TEXT NOT NULL
 );
--- .mode csv
--- .import dummy-db/grades.csv grades
+.mode csv
+.import dummy-data/grades.csv grades
 
 CREATE TABLE join_grades(
 	"id" INTEGER PRIMARY KEY ASC,
 	"notes" TEXT
 );
--- .mode csv
--- .import dummy-db/join_grades.csv join_grades
+.mode csv
+.import dummy-data/join_grades.csv join_grades
 
 CREATE TABLE which_grades(
 	"id" INTEGER ASC NOT NULL,
@@ -41,8 +41,8 @@ CREATE TABLE which_grades(
 	FOREIGN KEY("id") REFERENCES join_grades("id"),
 	FOREIGN KEY("grade") REFERENCES grades("id")
 );
--- .mode csv
--- .import dummy-db/which_grades.csv which_grades
+.mode csv
+.import dummy-data/which_grades.csv which_grades
 
 CREATE TABLE styles(
 	"style" TEXT PRIMARY KEY NOT NULL
@@ -76,15 +76,15 @@ CREATE TABLE climb_type(
 	"id" INTEGER PRIMARY KEY ASC,
 	"type" TEXT NOT NULL
 );
--- .mode csv
--- .import dummy-db/types.csv climb_type
+.mode csv
+.import dummy-data/types.csv climb_type
 
 CREATE TABLE join_types(
 	"id" INTEGER PRIMARY KEY ASC,
 	"notes" TEXT
 );
--- .mode csv
--- .import dummy-db/join_types.csv join_types
+.mode csv
+.import dummy-data/join_types.csv join_types
 
 CREATE TABLE which_types(
 	"id" INTEGER ASC NOT NULL,
@@ -93,8 +93,8 @@ CREATE TABLE which_types(
 	FOREIGN KEY("type") REFERENCES climb_type("id"),
 	FOREIGN KEY("id") REFERENCES join_types("id")
 );
--- .mode csv
--- .import dummy-db/which_types.csv which_types
+.mode csv
+.import dummy-data/which_types.csv which_types
 
 CREATE TABLE partners(
 	"id" INTEGER PRIMARY KEY ASC,
@@ -102,8 +102,9 @@ CREATE TABLE partners(
 	"lname" TEXT NOT NULL,
 	"notes" TEXT
 );
--- .mode csv
--- .import dummy-db/partners.csv partners
+INSERT INTO partners
+VALUES
+	(-1, -1, -1, -1);
 
 CREATE TABLE areas(
 	"id" INTEGER PRIMARY KEY ASC,
@@ -113,7 +114,7 @@ CREATE TABLE areas(
 	"notes" TEXT
 );
 -- .mode csv
--- .import dummy-db/areas.csv areas
+-- .import dummy-data/areas.csv areas
 
 CREATE TABLE climbs(
 	"id" INTEGER PRIMARY KEY ASC,
@@ -131,7 +132,7 @@ CREATE TABLE climbs(
 	FOREIGN KEY("area") REFERENCES areas("id")
 );
 -- .mode csv
--- .import dummy-db/climbs.csv climbs
+-- .import dummy-data/climbs.csv climbs
 
 CREATE TABLE clients(
 	"id" INTEGER PRIMARY KEY ASC,
@@ -139,8 +140,9 @@ CREATE TABLE clients(
     "lname" TEXT NOT NULL,
     "notes" TEXT
 );
--- .mode csv
--- .import dummy-db/clients.csv clients
+INSERT INTO clients
+VALUES
+	(-1, -1, -1, -1);
 
 CREATE TABLE guided(
 	"id" INTEGER PRIMARY KEY ASC,
@@ -148,15 +150,17 @@ CREATE TABLE guided(
 	"tip" INTEGER,
 	"notes" TEXT
 );
--- .mode csv
--- .import dummy-db/guided.csv guided
+INSERT INTO guided (id, company, tip, notes)
+VALUES
+	(-1, -1, -1, -1);
 
 CREATE TABLE climbed_partners(
 	"id" INTEGER PRIMARY KEY ASC,
 	"notes" TEXT
 );
--- .mode csv
--- .import dummy-db/climbed_partners.csv climbed_partners
+INSERT INTO climbed_partners (id, notes)
+VALUES
+	(-1, NULL);
 
 CREATE TABLE ticks(
 	"id" INTEGER PRIMARY KEY ASC,
@@ -176,7 +180,7 @@ CREATE TABLE ticks(
 	FOREIGN KEY("guided_id") REFERENCES guided("id")
 );
 -- .mode csv
--- .import dummy-db/ticks.csv ticks
+-- .import dummy-data/ticks.csv ticks
 
 CREATE TABLE guided_client(
 	"guided_id" INTEGER NOT NULL,
@@ -185,8 +189,9 @@ CREATE TABLE guided_client(
 	FOREIGN KEY("guided_id") REFERENCES guided("id"),
 	FOREIGN KEY("client_id") REFERENCES clients("id")
 );
--- .mode csv
--- .import dummy-db/guided_client.csv guided_client
+INSERT INTO guided_client (guided_id, client_id)
+VALUES
+	(-1, -1);
 
 CREATE TABLE climbed_with(
 	"climbing_id" INTEGER NOT NULL,
@@ -195,5 +200,6 @@ CREATE TABLE climbed_with(
 	FOREIGN KEY("climbing_id") REFERENCES climbed_partners("id"),
 	FOREIGN KEY("partner_id") REFERENCES partners("id")
 );
--- .mode csv
--- .import dummy-db/climbed_with.csv climbed_with
+INSERT INTO climbed_with (climbing_id, partner_id)
+VALUES
+	(-1, -1);
