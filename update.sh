@@ -6,4 +6,4 @@ python3 scripts/add_data.py
 
 echo "Updating your journal"
 cat scripts/send-to-csv.sql | sqlite3 ticks
-echo "Your journal is up to date! Go check out those sweet sweet numbahs!
+echo "Your journal is up to date! Go check out those sweet sweet numbahs!"
