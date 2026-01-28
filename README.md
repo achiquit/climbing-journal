@@ -40,6 +40,7 @@ I also left some fun little SQL scripts in the scripts folder. Some of them just
 - A way to update the DB without manually executing the code in a SQLite shell in the event of a typo like a mispelled name
 - Figuring out how to make a histogram that displays ticks by grade AND type (like on Mountain Project)
 - Making the wrapped script update itself for every year with interactivity to choose which year is viewed
+- Make a script to migrate Mountain Project ticks to the DB
 
 # Final Notes:
 Please remember, I'm entirely an amateur coder. I've never worked in the industry, so I've learned nearly everything on the fly. Therefore I don't know what I don't know, and those of you who are veteran coders may laugh at my code or become hampered by it's poor flow/structure.
