@@ -195,23 +195,77 @@ def danger_func() -> str:
         return danger_func()
 
 def type_func(cur: Cursor, con: Connection) -> int:
-    choice = get_int("Climb Type (1: Trad | 2: Sport | 3: TR | 4: Boulder | -1: More)")
-    if choice == -1:
-        res = cur.execute("SELECT * FROM climb_type;")
-        print(res.fetchall())
-        choice = get_int("Climb Type")
-        return choice
-    elif choice == 1:
-        return 5
-    elif choice == 2:
-        return 4
-    elif choice == 3:
-        return 3
-    elif choice == 4:
-        return 2
+    res = cur.execute(f"""SELECT which_types.id, GROUP_CONCAT(climb_type.type, ', ') FROM which_types INNER JOIN climb_type ON climb_type.id = which_types.type GROUP BY which_types.id;""")
+    types = res.fetchall()
+
+    types_list = ['Boulder', 'TR', 'Sport', 'Trad', 'Alpine Ice', 'Water Ice', 'Aid', 'Via', 'Snow', 'Scramble']
+
+    res = cur.execute("SELECT id FROM which_types ORDER BY id DESC;")
+    last_type_amalgam = res.fetchone()
+    new_id = last_type_amalgam[0] + 1
+
+    search = input("What type of climb was it? (Trad, Sport, Boulder, etc. -1 to see all) : ")
+
+    if search == '-1':
+        for type in types:
+            print(type)
+    elif search in types_list:
+        for type in types:
+            if search in type[1]:
+                print(type)
     else:
         print("Oops, looks like you made a typo! Try again :)")
-        return type_func(cur)
+        return type_func(cur, con)
+
+    choice = get_int("What's the type ID for your climb? (-1 to make a new combination, -2 to search again)")
+
+    if choice == -1:
+        return new_type_amalgam(cur, con, new_id)
+    elif choice == -2:
+        return new_type_amalgam(cur, con, new_id)
+    elif choice == 0:
+        print("Oops, looks like you made a typo! Try again :)")
+        return type_func(cur, con)
+    elif choice < new_id:
+        return choice
+
+def new_type_amalgam(cur: Cursor, con: Connection, new_amalgam_id: int) -> int:
+    res = cur.execute("SELECT * from climb_type;")
+    types = res.fetchall()
+    new_types = []
+
+    for type in types:
+        print(type)
+    
+    first_choice = True
+    complete = False
+    while complete is False:
+        while first_choice is True:
+            choice = get_int("What's the first type ID?")
+            if choice < len(types):
+                if choice > 0:
+                    first_choice = False
+                    new_types.append((new_amalgam_id, choice))
+        choice = get_int("What's the next type ID? (-1 if you're done)")
+        if choice > -2:
+            if choice == -1:
+                complete = True
+            elif choice > 0:
+                new_types.append((new_amalgam_id, choice))
+
+    cur.execute(f"""
+        INSERT INTO join_types VALUES
+            ({new_amalgam_id}, "it's a join type :)")
+    """)
+    con.commit()
+    
+    new_data = []
+    for type in new_types:
+        new_data.append((new_amalgam_id, type[1]))    
+    cur.executemany("INSERT INTO which_types VALUES(?, ?)", new_data)
+    con.commit()
+
+    return new_amalgam_id
 
 def commitment_func() -> str:
     commitment = input("Commitment (I, II, etc, -1 for nothing): ")
