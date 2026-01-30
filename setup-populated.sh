@@ -9,4 +9,4 @@ cat scripts/initial-setup-dummy.sql | sqlite3 ticks
 echo "Updating CSVs"
 cat scripts/send-to-csv.sql | sqlite3 ticks
 
-echo "Everything is set up! Play around with the data in SQLite or check out the journal! (check out the ReadMe for help viewing the journal)
+echo "Everything is set up! Play around with the data in SQLite or check out the journal! (check out the ReadMe for help viewing the journal)"
