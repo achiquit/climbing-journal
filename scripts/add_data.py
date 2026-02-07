@@ -294,7 +294,7 @@ def grade_func(cur: Cursor) -> int:
     elif grade_id == -2:
         return grade_func(cur)
     elif grade_id < new_id:
-        if grade_id > 0:
+        if grade_id > -1:
             return grade_id
     else:
         input("Looks like you made a typo! Try again :)")
@@ -522,7 +522,7 @@ def partner_search(cur: Cursor, search: str) -> list:
         return partner_search(cur, search)
     elif choice == -2:
         return new_partner(cur)
-    elif choice > 0:
+    elif choice > -1:
         if choice <= last_partner_id:
             res = cur.execute(f"SELECT id, fname, lname FROM partners WHERE id = {choice};")
             partner = res.fetchall()
@@ -673,7 +673,7 @@ def easy_client_search(cur: Cursor) -> int:
         return easy_client_search(cur)
     elif choice == -2:
         return None
-    elif choice > 0:
+    elif choice > -1:
         if choice <= last_guided_id:
             return choice
     else:
