@@ -4,7 +4,9 @@ I ended up with a neat SQLite database that I then used to create some interpret
 I've been pretty happy with it for some time, but there are some minor things I'd like to tweak when I have the time to fuss with them. In the meantime, I thought it would be lame to keep it all to myself, so I whipped up this adaptation so that other data nerds can benefit if they'd like! Enjoy :)
 
 To help understand the schema of the database, I whipped up some ER diagrams!
+
 To understand the general schema, open ticks-db.drawio in [Draw.IO](https://app.diagrams.net/)
+
 To understand the foreign key structure, open ticks-db-diagram.ods (a Libre Office spreadsheet file)
 
 # Prerequesites
